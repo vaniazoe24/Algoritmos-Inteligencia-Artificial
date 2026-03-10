@@ -1,0 +1,27 @@
+def es_seguro(tablero, fila, columna):
+    for i in range(fila):
+        if tablero[i] == columna or tablero[i] - i == columna - fila or tablero[i] + i == columna + fila:
+            return False
+    return True
+
+
+def resolver_8_reinas(tablero, fila):
+    if fila == 8:
+        return True
+
+    for columna in range(8):
+        if es_seguro(tablero, fila, columna):
+            tablero[fila] = columna
+
+            if resolver_8_reinas(tablero, fila + 1):
+                return True
+
+            tablero[fila] = -1
+
+    return False
+
+
+tablero = [-1] * 8
+
+if resolver_8_reinas(tablero, 0):
+    print(tablero)
