@@ -1,0 +1,5 @@
+def moveDisks(n, src, helper, dst):
+    if n > 0:
+        moveDisks(n-1, src, dst, helper)
+        print('Move disk #{} from {} to {}'.format(n, src, dst))
+        moveDisks(n-1, helper, src, dst)
