@@ -1,0 +1,21 @@
+import heapq
+
+def a_estrella(grafo, heuristicas, inicio, meta):
+    pq = [(heuristicas[inicio], 0, inicio, [inicio])]
+    visitados = {}
+
+    while pq:
+        f, g, nodo, camino = heapq.heappop(pq)
+
+        if nodo == meta:
+            return camino, g
+
+        if nodo not in visitados or g < visitados[nodo]:
+            visitados[nodo] = g
+
+            for vecino, costo_arista in grafo.get(nodo, []):
+                nuevo_g = g + costo_arista
+                nuevo_f = nuevo_g + heuristicas.get(vecino, 0)
+                heapq.heappush(pq, (nuevo_f, nuevo_g, vecino, camino + [vecino]))
+
+    return None, float('inf')
