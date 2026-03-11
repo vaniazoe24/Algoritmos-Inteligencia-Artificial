@@ -1,0 +1,35 @@
+INICIO Programa
+    tablero = [-1,-1,-1,-1,-1,-1,-1,-1]
+    
+    SI resolver(tablero, 0) = VERDADERO
+        IMPRIMIR tablero
+FIN
+
+FUNCIÓN es_seguro(tablero, fila, columna)
+    PARA i = 0 HASTA fila-1
+        SI tablero[i] = columna O
+           tablero[i] - i = columna - fila O
+           tablero[i] + i = columna + fila
+            DEVOLVER FALSO
+        FIN SI
+    FIN PARA
+    DEVOLVER VERDADERO
+FIN FUNCIÓN
+
+FUNCIÓN resolver(tablero, fila)
+    SI fila = 8 ENTONCES
+        DEVOLVER VERDADERO
+    
+    PARA columna = 0 HASTA 7
+        SI es_seguro(tablero, fila, columna) ENTONCES
+            tablero[fila] = columna
+            
+            SI resolver(tablero, fila+1) = VERDADERO
+                DEVOLVER VERDADERO
+            
+            tablero[fila] = -1  // Backtracking
+        FIN SI
+    FIN PARA
+    
+    DEVOLVER FALSO
+FIN FUNCIÓN
